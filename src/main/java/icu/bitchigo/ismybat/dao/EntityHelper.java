@@ -7,8 +7,20 @@ import icu.bitchigo.ismybat.util.StringUtil;
 
 import java.util.Arrays;
 
+/**
+ * 实体类助手
+ *
+ * @author bitchigo
+ * @date 2022/09/18
+ */
 public class EntityHelper {
 
+    /**
+     * 获取表名
+     *
+     * @param clazz 克拉兹
+     * @return {@link String}
+     */
     public static String getTableName(Class<?> clazz) {
         DBTable annotation = clazz.getAnnotation(DBTable.class);
         if (annotation != null && StringUtil.isNotEmpty(annotation.name())) {
@@ -18,6 +30,12 @@ public class EntityHelper {
         return StringUtil.toUpperUnderline(tableName);
     }
 
+    /**
+     * 获取sql字段数组
+     *
+     * @param clazz 克拉兹
+     * @return {@link String[]}
+     */
     public static String[] getSqlFields(Class<?> clazz) {
         return Arrays.stream(clazz.getDeclaredFields())
                 .filter(f -> null == f.getAnnotation(DBFieldIgnore.class))

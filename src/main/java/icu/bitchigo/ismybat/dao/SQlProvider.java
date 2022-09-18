@@ -1,6 +1,12 @@
 package icu.bitchigo.ismybat.dao;
 
 
+/**
+ * sql提供程序
+ *
+ * @author bitchigo
+ * @date 2022/09/18
+ */
 class SQlProvider {
 
     public <T> String selectByPo(T table) {

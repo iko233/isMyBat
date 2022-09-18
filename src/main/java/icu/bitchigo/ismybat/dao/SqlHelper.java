@@ -8,8 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * sql助手
+ *
+ * @author bitchigo
+ * @date 2022/09/18
+ */
 class SqlHelper {
 
+    /**
+     * 生成select语句
+     *
+     * @param builder 字符串构造器
+     * @param table   表
+     * @param fields  属性
+     */
     public static void select(StringBuilder builder, String table, String[] fields) {
         builder.append(" SELECT \n    ");
         builder.append(String.join(",", fields));
@@ -17,6 +30,12 @@ class SqlHelper {
         builder.append(table);
     }
 
+    /**
+     * 生成select语句
+     *
+     * @param builder 字符串构造器
+     * @param table   表
+     */
     public static <T> void select(StringBuilder builder, T table) {
         builder.append(" SELECT \n    ");
         builder.append(String.join(",", EntityHelper.getSqlFields(table.getClass())));
@@ -24,6 +43,12 @@ class SqlHelper {
         builder.append(EntityHelper.getTableName(table.getClass()));
     }
 
+    /**
+     * 生成where语句
+     *
+     * @param builder 字符串构造器
+     * @param table   实体
+     */
     public static <T> void where(StringBuilder builder, T table) {
         Class<?> clazz = table.getClass();
         Field[] declaredFields = clazz.getDeclaredFields();
@@ -70,6 +95,13 @@ class SqlHelper {
         }
     }
 
+    /**
+     * 生成where in sql
+     *
+     * @param sqlFieldName sql字段名
+     * @param list         列表
+     * @return {@link String}
+     */
     public static String whereIn(String sqlFieldName,List<Serializable> list){
         StringBuilder builder = new StringBuilder();
         builder.append(" ");
@@ -80,6 +112,13 @@ class SqlHelper {
         return builder.toString();
     }
 
+    /**
+     * 生成where equal sql
+     *
+     * @param sqlFieldName sql字段名
+     * @param fieldValue   字段值
+     * @return {@link String}
+     */
     public static String whereEqual(String sqlFieldName, Serializable fieldValue) {
         StringBuilder builder = new StringBuilder();
         builder.append(" ");
@@ -90,6 +129,13 @@ class SqlHelper {
         return builder.toString();
     }
 
+    /**
+     * 生成limit sql
+     *
+     * @param builder 字符串构造器
+     * @param page    页数
+     * @param size    大小
+     */
     public static void limit(StringBuilder builder, int page, int size) {
         builder.append("\n LIMIT ");
         builder.append((page - 1) * size);
